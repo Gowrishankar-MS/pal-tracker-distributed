@@ -11,6 +11,7 @@ dependencies {
     compile project(":components:rest-support")
 
     compile "org.springframework.boot:spring-boot-starter-web"
+    compile 'org.springframework.boot:spring-boot-starter-jdbc'
     compile "org.springframework.boot:spring-boot-starter-actuator"
     compile "io.pivotal.spring.cloud:spring-cloud-services-starter-service-registry"
 
@@ -19,4 +20,18 @@ dependencies {
     compile "ch.qos.logback:logback-classic:$logbackVersion"
 
     testCompile project(":components:test-support")
+}
+
+bootRun.environment([
+        "MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE": "*",
+        "MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS": "always"
+])
+
+test.environment([
+        "MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE": "*",
+        "MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS": "always"
+])
+
+springBoot {
+    buildInfo()
 }
